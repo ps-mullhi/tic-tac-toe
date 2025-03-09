@@ -5,7 +5,7 @@ class Board
   attr_accessor :board_spots
 
   def initialize()
-    @board_spots = Array.new(9, BoardSpot.new(SpotValue::VALUE_EMPTY))
+    @board_spots = Array.new(9){BoardSpot.new(SpotValue::VALUE_EMPTY)}
   end
 
   def display_board()

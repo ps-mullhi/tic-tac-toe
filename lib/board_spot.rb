@@ -1,5 +1,5 @@
 class BoardSpot
-  attr_reader :spot_value
+  attr_accessor :spot_value
 
   def initialize(spot_value)
     @spot_value = spot_value

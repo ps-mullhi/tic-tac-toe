@@ -17,7 +17,7 @@ end
 
 def clear_after_input_received(message)
   print(message)
-  gets.chomp
+  gets
   puts(`clear`)
 end
 
@@ -38,7 +38,31 @@ def main()
   player_one = players[0]
   player_two = players[1]
 
-  
+  game_board = Board.new()
+  active_player = player_one
+  non_active_player = player_two
+
+  loop do
+    game_board.display_board()
+    player_pick = 0
+    loop do
+      print("Where would you like to go #{active_player.name}? (1-9)")
+      player_pick = gets.chomp.to_i
+      break if player_pick.to_i.between?(1,9) && game_board.board_spots[player_pick.to_i-1].spot_value == SpotValue::VALUE_EMPTY
+      puts('Invalid entry. (Spot occupied, or #1-9 not entered)')
+    end
+
+    game_board.board_spots[player_pick-1].spot_value = active_player.board_piece
+    game_board.display_board()
+
+    #Check for win condition or board full TODO
+
+    clear_after_input_received('Game not over. Press anything to go to next player\'s move...')
+    active_player, non_active_player = non_active_player, active_player
+    
+  end
+
+
 
 end
 
