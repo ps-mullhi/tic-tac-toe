@@ -3,6 +3,16 @@ require_relative './spot_value.rb'
 
 class Board
   attr_accessor :board_spots
+  WINNING_COMBOS = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ]
 
   def initialize()
     @board_spots = Array.new(9){BoardSpot.new(SpotValue::VALUE_EMPTY)}
@@ -25,5 +35,20 @@ class Board
     end
 
     puts()
+  end
+
+  def winner?()
+    WINNING_COMBOS.any? do |combo|
+      a,b,c = combo
+      board_spots[a].spot_value == board_spots[b].spot_value &&
+      board_spots[b].spot_value == board_spots[c].spot_value &&
+      board_spots[a].spot_value != SpotValue::VALUE_EMPTY
+    end
+  end
+
+  def board_full?()
+    board_spots.all? do |spot|
+      spot.spot_value != SpotValue::VALUE_EMPTY
+    end
   end
 end
