@@ -35,19 +35,21 @@ end
 
 def main()
   game_board = Board.new()
-  
+
   player_one, player_two = setup_players()
   active_player, non_active_player = player_one, player_two
-
   has_someone_won = false
   board_full = false
+
   loop do
     game_board.display_board()
     player_pick = 0
+
     loop do
       print("Where would you like to go #{active_player.name}? (#1-9) : ")
       player_pick = gets.chomp.to_i
       break if player_pick.to_i.between?(1,9) && game_board.board_spots[player_pick.to_i-1].spot_value == SpotValue::VALUE_EMPTY
+
       puts('Invalid entry. (Spot occupied, or #1-9 not entered)')
     end
 
@@ -60,13 +62,12 @@ def main()
 
     clear_after_input_received('Game not over. Press anything to go to next player\'s move...')
     active_player, non_active_player = non_active_player, active_player
-    
   end
 
   puts(`clear`)
   print('Game over! ')
   puts("#{active_player.name} wins!") if has_someone_won
-  puts("Draw.") if board_full && !has_someone_won
+  puts("Draw.") if board_full && (has_someone_won == false)
   game_board.display_board()
 end
 
