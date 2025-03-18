@@ -71,7 +71,7 @@ def main()
   game_board.display_board()
 end
 
-main()
+# main()
 
 
 
